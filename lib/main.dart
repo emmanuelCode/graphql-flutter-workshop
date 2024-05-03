@@ -30,6 +30,11 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double cardHorizontalMargin = 200;
+    double screenWidth = MediaQuery.of(context).size.width;
+    if(screenWidth < 1000){
+      cardHorizontalMargin = 100;
+    }
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Padding(
@@ -42,10 +47,10 @@ class MyHomePage extends StatelessWidget {
                   .textTheme
                   .displayLarge!
                   .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
               children: [
                 logos[0],
                 const SizedBox(width: 24),
@@ -59,42 +64,45 @@ class MyHomePage extends StatelessWidget {
               child: Card(
                 color: Theme.of(context).colorScheme.primaryContainer,
                 margin:
-                    const EdgeInsets.symmetric(horizontal: 200, vertical: 16),
-                child: Column(
-                  children: graphqlCodelabs
-                      .map(
-                        (codelab) => Link(
-                          target: LinkTarget.blank,
-                          uri: Uri.parse(codelab.link),
-                          builder:
-                              (BuildContext context, FollowLink? followLink) =>
-                                  ListTile(
-                            minVerticalPadding: 32,
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 32),
-                            title: Text(
-                              codelab.title,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
-                                  .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryContainer,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                              textAlign: TextAlign.center,
+                EdgeInsets.symmetric(horizontal: cardHorizontalMargin, vertical: 16),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: graphqlCodelabs
+                        .map(
+                          (codelab) => Link(
+                            target: LinkTarget.blank,
+                            uri: Uri.parse(codelab.link),
+                            builder:
+                                (BuildContext context, FollowLink? followLink) =>
+                                    ListTile(
+                              minVerticalPadding: 32,
+                              contentPadding:
+                                  const EdgeInsets.symmetric(horizontal: 32),
+                              title: Text(
+                                codelab.title,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimaryContainer,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                textAlign: TextAlign.center,
+                              ),
+                              subtitle: Text(
+                                codelab.description,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                                textAlign: TextAlign.center,
+                              ),
+                              onTap: followLink,
                             ),
-                            subtitle: Text(
-                              codelab.description,
-                              style: Theme.of(context).textTheme.bodyLarge,
-                              textAlign: TextAlign.center,
-                            ),
-                            onTap: followLink,
                           ),
-                        ),
-                      )
-                      .toList(),
+                        )
+                        .toList(),
+                  ),
                 ),
               ),
             ),

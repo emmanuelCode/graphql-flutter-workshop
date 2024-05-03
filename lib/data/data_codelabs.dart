@@ -15,7 +15,7 @@ const graphqlCodelabs = [
   GraphQLCodelabs(
     title: 'Part 3: Flutter Codegen with GraphQL',
     description:
-        'In this codelab you\'ll on using code generation on GraphQL which is less prone to errors and allows you to be productive as a developer.',
+        'In this codelab you\'ll be using code generation on GraphQL which is less prone to errors and allows you to be productive as a developer.',
     link: 'https://emmanuelcode.github.io/flutter-codegen-graphql',
   ),
 ];
